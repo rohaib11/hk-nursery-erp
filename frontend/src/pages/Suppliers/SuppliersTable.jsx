@@ -4,12 +4,12 @@ export default function SuppliersTable({ suppliers, isLoading, onSendPayment }) 
   return (
     <div className="bg-[#111827]/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[800px]">
+        <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr className="bg-slate-800/40 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700/50">
               <th className="p-4 font-semibold">Vendor Info</th>
               <th className="p-4 font-semibold">Contact</th>
-              <th className="p-4 font-semibold">Location</th>
+              <th className="p-4 font-semibold hidden md:table-cell">Location</th>
               <th className="p-4 font-semibold text-right">Payable Balance</th>
               <th className="p-4 text-right font-semibold">Actions</th>
             </tr>
@@ -36,7 +36,7 @@ export default function SuppliersTable({ suppliers, isLoading, onSendPayment }) 
                       {s.company_name && <p className="text-xs text-indigo-400 mt-0.5">{s.company_name}</p>}
                     </td>
                     <td className="p-4 text-slate-300 text-sm">{s.phone || '-'}</td>
-                    <td className="p-4 text-slate-400 text-sm truncate max-w-[200px]">{s.address || '-'}</td>
+                    <td className="p-4 text-slate-400 text-sm truncate max-w-[200px] hidden md:table-cell">{s.address || '-'}</td>
                     <td className="p-4 text-right">
                       <span className={`font-bold px-3 py-1.5 rounded-lg border ${
                         oweMoney 

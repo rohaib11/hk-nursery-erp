@@ -12,14 +12,14 @@ export default function InvoiceHistory({ history }) {
       </div>
       
       <div className="overflow-x-auto max-h-[500px]">
-        <table className="w-full text-left text-sm border-collapse min-w-[800px]">
+        <table className="w-full text-left text-sm border-collapse min-w-[650px]">
           <thead className="sticky top-0 bg-[#0f172a] shadow-md z-10">
             <tr className="text-slate-400 uppercase tracking-wider text-xs">
               <th className="p-4 font-semibold border-b border-slate-800">Date</th>
               <th className="p-4 font-semibold border-b border-slate-800">Invoice #</th>
-              <th className="p-4 font-semibold border-b border-slate-800">Customer / Account</th>
+              <th className="p-4 font-semibold border-b border-slate-800 hidden md:table-cell">Customer / Account</th>
               <th className="p-4 font-semibold text-right border-b border-slate-800">Total Bill</th>
-              <th className="p-4 font-semibold text-right border-b border-slate-800">Paid Now</th>
+              <th className="p-4 font-semibold text-right border-b border-slate-800 hidden lg:table-cell">Paid Now</th>
               <th className="p-4 font-semibold text-right border-b border-slate-800">New Udhaar</th>
             </tr>
           </thead>
@@ -40,11 +40,11 @@ export default function InvoiceHistory({ history }) {
                       {new Date(inv.created_at).toLocaleDateString('en-GB')}
                     </td>
                     <td className="p-4 font-mono text-emerald-400">#{inv.id}</td>
-                    <td className="p-4 text-white font-medium">
+                    <td className="p-4 text-white font-medium hidden md:table-cell">
                       {inv.customer_name || 'Walk-in Customer'}
                     </td>
                     <td className="p-4 text-right font-bold text-white">Rs {money(total)}</td>
-                    <td className="p-4 text-right text-emerald-400">Rs {money(paid)}</td>
+                    <td className="p-4 text-right text-emerald-400 hidden lg:table-cell">Rs {money(paid)}</td>
                     <td className="p-4 text-right">
                       {udhaar > 0 ? (
                         <span className="bg-rose-950/40 text-rose-400 px-2.5 py-1 rounded-md text-xs font-bold border border-rose-900/50">

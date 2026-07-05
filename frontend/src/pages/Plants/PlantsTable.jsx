@@ -20,15 +20,15 @@ export default function PlantsTable({ plants, isLoading, onEdit, onDelete, onVie
   return (
     <div className="bg-[#111827]/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[850px]">
+        <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr className="bg-slate-800/40 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700/50">
               <th className="p-2 w-8"></th>
               <th className="p-4 font-semibold">Plant</th>
-              <th className="p-4 font-semibold">Category</th>
+              <th className="p-4 font-semibold hidden lg:table-cell">Category</th>
               <th className="p-4 font-semibold">Stock</th>
-              <th className="p-4 font-semibold">Health</th>
-              <th className="p-4 font-semibold">Growth</th>
+              <th className="p-4 font-semibold hidden lg:table-cell">Health</th>
+              <th className="p-4 font-semibold hidden md:table-cell">Growth</th>
               <th className="p-4 font-semibold">Price</th>
               <th className="p-4 text-right font-semibold">Actions</th>
             </tr>
@@ -94,7 +94,7 @@ export default function PlantsTable({ plants, isLoading, onEdit, onDelete, onVie
                           </div>
                         </div>
                       </td>
-                      <td className="p-4">
+                      <td className="p-4 hidden lg:table-cell">
                         <span className="text-xs font-medium bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 shadow-sm whitespace-nowrap">
                           {plant.category_name || 'N/A'}
                         </span>
@@ -110,7 +110,7 @@ export default function PlantsTable({ plants, isLoading, onEdit, onDelete, onVie
                           </span>
                         )}
                       </td>
-                      <td className="p-4">
+                      <td className="p-4 hidden lg:table-cell">
                         <span className={`text-[10px] uppercase tracking-wider font-bold px-2.5 py-1.5 rounded-lg shadow-sm ${
                           plant.health_status === 'Healthy'
                             ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-800/60'
@@ -121,7 +121,7 @@ export default function PlantsTable({ plants, isLoading, onEdit, onDelete, onVie
                           {plant.health_status}
                         </span>
                       </td>
-                      <td className="p-4">
+                      <td className="p-4 hidden md:table-cell">
                         <span className={`text-[10px] uppercase tracking-wider font-bold px-2.5 py-1.5 rounded-lg shadow-sm ${
                           plant.growth_status === 'Ready'
                             ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-800/60'

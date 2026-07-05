@@ -15,13 +15,13 @@ export default function ExpensesTable({ expenses, isLoading, onEdit, onDelete })
   return (
     <div className="bg-[#111827]/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[800px]">
+        <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr className="bg-slate-800/40 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700/50">
               <th className="p-4 font-semibold">Date</th>
               <th className="p-4 font-semibold">Expense Title</th>
-              <th className="p-4 font-semibold">Category</th>
-              <th className="p-4 font-semibold">Batch Link</th>
+              <th className="p-4 font-semibold hidden lg:table-cell">Category</th>
+              <th className="p-4 font-semibold hidden lg:table-cell">Batch Link</th>
               <th className="p-4 font-semibold">Amount</th>
               <th className="p-4 text-right font-semibold">Actions</th>
             </tr>
@@ -46,12 +46,12 @@ export default function ExpensesTable({ expenses, isLoading, onEdit, onDelete })
                     <p className="text-white font-bold text-sm">{exp.title}</p>
                     {exp.notes && <p className="text-xs text-slate-500 truncate max-w-xs">{exp.notes}</p>}
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 hidden lg:table-cell">
                     <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-lg border ${getCategoryColor(exp.category)}`}>
                       {exp.category}
                     </span>
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 hidden lg:table-cell">
                     {exp.is_batch_expense && exp.plant_name ? (
                       <div className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950/20 px-2 py-1 rounded-md border border-emerald-900/30 w-max">
                         <CheckCircle size={12} /> {exp.plant_name}
