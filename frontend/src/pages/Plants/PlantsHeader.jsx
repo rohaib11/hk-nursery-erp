@@ -1,6 +1,18 @@
-import { Plus, Search, RefreshCw } from 'lucide-react';
+import { Plus, Search, RefreshCw, Upload } from 'lucide-react';
 
-export default function PlantsHeader({ count, onAdd, search, setSearch, filterGrowth, setFilterGrowth, onRefresh, isLoading, showZeroStock, setShowZeroStock }) {
+export default function PlantsHeader({
+  count,
+  onAdd,
+  onBulkImport,
+  search,
+  setSearch,
+  filterGrowth,
+  setFilterGrowth,
+  onRefresh,
+  isLoading,
+  showZeroStock,
+  setShowZeroStock
+}) {
   return (
     <>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
@@ -8,12 +20,20 @@ export default function PlantsHeader({ count, onAdd, search, setSearch, filterGr
           <h2 className="text-2xl font-bold text-white">Inventory Management</h2>
           <p className="text-slate-400 text-sm">{count} plants displayed</p>
         </div>
-        <button
-          onClick={onAdd}
-          className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-emerald-900/20"
-        >
-          <Plus size={18} /> Add New Plant
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={onBulkImport}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-indigo-900/20"
+          >
+            <Upload size={18} /> Import CSV
+          </button>
+          <button
+            onClick={onAdd}
+            className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-emerald-900/20"
+          >
+            <Plus size={18} /> Add New Plant
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-center">

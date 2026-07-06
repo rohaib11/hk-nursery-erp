@@ -127,3 +127,16 @@ CREATE TABLE IF NOT EXISTS settings (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+
+-- Plant History Log (Audit Trail)
+CREATE TABLE IF NOT EXISTS plant_history (
+    id SERIAL PRIMARY KEY,
+    plant_id INT NOT NULL REFERENCES plants(id) ON DELETE CASCADE,
+    action VARCHAR(50) NOT NULL,          -- 'create', 'update', 'delete', 'mortality'
+    changed_fields TEXT[],                -- array of field names that were changed
+    old_values JSONB,                     -- old values (null for create)
+    new_values JSONB,                     -- new values (null for delete)
+    performed_by INT REFERENCES users(id),
+    performed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

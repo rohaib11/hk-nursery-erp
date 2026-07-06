@@ -5,6 +5,7 @@ import PlantsTable from './PlantsTable';
 import PlantModal from './PlantModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import MortalityModal from './MortalityModal';
+import BulkImportModal from './BulkImportModal'; // 🆕
 import { AlertCircle } from 'lucide-react';
 
 const API_BASE = 'http://localhost:5000/api';
@@ -14,7 +15,7 @@ export default function Plants() {
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [search, setSearch] = useState('');
   const [filterGrowth, setFilterGrowth] = useState('');
-  const [showZeroStock, setShowZeroStock] = useState(false);   // 🆕 toggle
+  const [showZeroStock, setShowZeroStock] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -25,6 +26,7 @@ export default function Plants() {
 
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [mortalityTarget, setMortalityTarget] = useState(null);
+  const [isBulkImportOpen, setIsBulkImportOpen] = useState(false); // 🆕
 
   function getInitialState() {
     return {
@@ -64,10 +66,7 @@ export default function Plants() {
     }
     if (filterGrowth) result = result.filter(p => p.growth_status === filterGrowth);
 
-    // Always hide dead plants
     result = result.filter(p => p.health_status !== 'Dead');
-
-    // Only hide zero‑stock when the toggle is OFF
     if (!showZeroStock) {
       result = result.filter(p => p.quantity > 0);
     }
@@ -100,6 +99,19 @@ export default function Plants() {
 
   const handleLogMortalityRequest = (plant) => {
     setMortalityTarget(plant);
+  };
+
+  // 🆕 Bulk Import handler
+  const handleBulkImport = async (plantsArray) => {
+    const token = localStorage.getItem('token');
+    const res = await axios.post(
+      `${API_BASE}/plants/bulk-import`,
+      { plants: plantsArray },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    // Refresh the list after import
+    await fetchPlants();
+    return res.data;
   };
 
   // --- API Submission Handlers ---
@@ -158,12 +170,13 @@ export default function Plants() {
       <PlantsHeader
         count={filteredPlants.length}
         onAdd={handleOpenAdd}
+        onBulkImport={() => setIsBulkImportOpen(true)}   // 🆕
         search={search}
         setSearch={setSearch}
         filterGrowth={filterGrowth}
         setFilterGrowth={setFilterGrowth}
-        showZeroStock={showZeroStock}           // 🆕
-        setShowZeroStock={setShowZeroStock}     // 🆕
+        showZeroStock={showZeroStock}
+        setShowZeroStock={setShowZeroStock}
         onRefresh={fetchPlants}
         isLoading={isLoading}
       />
@@ -207,6 +220,15 @@ export default function Plants() {
           plant={mortalityTarget}
           onConfirm={handleMortalitySubmit}
           onCancel={() => setMortalityTarget(null)}
+        />
+      )}
+
+      {/* 🆕 Bulk Import Modal */}
+      {isBulkImportOpen && (
+        <BulkImportModal
+          isOpen={isBulkImportOpen}
+          onClose={() => setIsBulkImportOpen(false)}
+          onImport={handleBulkImport}
         />
       )}
     </div>

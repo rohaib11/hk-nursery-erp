@@ -19,6 +19,7 @@ import supplierRoutes from './routes/suppliers.js';
 import reportRoutes from './routes/reports.js';
 import dashboardRoutes from './routes/dashboard.js';
 import settingsRoutes from './routes/settings.js';
+import historyRoutes from './routes/history.js';   // 🆕
 
 // Load environment variables
 dotenv.config();
@@ -71,6 +72,8 @@ app.use('/api/suppliers', supplierRoutes); // 🆕 Connected Suppliers (Accounts
 app.use('/api/reports', reportRoutes); // 🆕 Connected Advanced Reports & Analytics
 app.use('/api/dashboard', dashboardRoutes); // 🆕 Connected Home Dashboard
 app.use('/api/settings', settingsRoutes);
+app.use('/api/history', historyRoutes);  // 🆕
+
 
 // ─── GLOBAL ERROR HANDLER ───
 app.use((err, req, res, next) => {
