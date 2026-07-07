@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+html, body {
+  overflow-x: hidden; /* Stops horizontal scrolling */
+  max-width: 100vw;   /* Keeps it inside the screen width */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Forces any huge images, tables, or graphs to shrink to fit */
+img, table, video {
+  max-width: 100%;
+  height: auto;
+}
